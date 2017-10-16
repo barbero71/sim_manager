@@ -1,0 +1,12 @@
+spring:
+    datasource:
+        url: jdbc:oracle:thin:@//192.168.1.231:1521/ORCL
+        username: sogesi
+        password: manager
+        driver-class-name: oracle.jdbc.OracleDriver
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        database-platform: org.hibernate.dialect.Oracle10gDialect
+        database: oracle
+        show-sql: false
