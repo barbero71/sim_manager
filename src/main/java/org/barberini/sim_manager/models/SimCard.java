@@ -12,6 +12,7 @@ public class SimCard
     private String puk;
 
     private Operatori operatore;
+    private Stati stato;
 
     @ManyToOne
     private Numerazioni numerazione;
@@ -47,5 +48,21 @@ public class SimCard
 
     public void setOperatore(Operatori operatore) {
         this.operatore = operatore;
+    }
+
+    public Stati getStato() {
+        return stato;
+    }
+
+    public void setStato(Stati stato) {
+        this.stato = stato;
+    }
+
+    public Numerazioni getNumerazione() {
+        return numerazione;
+    }
+
+    public void setNumerazione(Numerazioni numerazione) {
+        this.numerazione = numerazione;
     }
 }

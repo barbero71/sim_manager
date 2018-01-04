@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Elenco Numerazioni</title>
+</head>
+<body>
+<div class="table-responsive" th:if="${not #lists.isEmpty(numerazioni)}">
+    <table>
+        <tr>
+            <th>Numerazione</th>
+            <th>Data Attivazione</th>
+            <th>Data Disattivazione</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr th:each="numerazione : ${numerazioni}">
+            <!--/*@thymesVar id="numerazioni" type="org.barberini.sim_manager.model.Numerazioni"*/-->
+            <td th:text="${numerazione.numero}"></td>
+            <td th:text="${numerazione.dataAttivazione}"></td>
+            <td th:text="${numerazione.dataDisattivazione}"></td>
+            <td>Modifica...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

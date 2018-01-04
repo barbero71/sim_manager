@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Elenco Profili</title>
+</head>
+<body>
+<div class="table-responsive" th:if="${not #lists.isEmpty(profili)}">
+    <table>
+        <tr>
+            <th>Descrizione</th>
+            <th>Operatore</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr th:each="profilo : ${profili}">
+            <!--/*@thymesVar id="profili" type="org.barberini.sim_manager.model.Profili"*/-->
+            <td th:text="${profilo.descri}"></td>
+            <td th:text="${profilo.operatore}"></td>
+            <td>Modifica...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
