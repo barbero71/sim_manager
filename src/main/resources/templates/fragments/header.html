@@ -1,20 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     ...
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">My project</a>
-        </div>
-    </div>
+<div th:fragment="header">
+    <script language="JavaScript">
+        $(document).ready(function() {
+            // get current URL path and assign 'active' class
+            var pathname = window.location.pathname;
+            $('.navbar-nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+        })
+    </script>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top" style="margin:0px  0px;background-color: lightgrey; color: black">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{images/logo_nav.png}"/>
+        </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/lista_utenti" >Utenti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lista_numerazioni">Numerazioni</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">Sim Card</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">Utilità</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="#">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-success my2 mysm-0" type="submit" style="background-color: #009640">Search</button>
+            </form>
+    </nav>
 </div>
 </body>
 </html>

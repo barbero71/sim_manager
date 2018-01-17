@@ -1,6 +1,6 @@
 package org.barberini.sim_manager.services;
 
-import org.barberini.sim_manager.models.Numerazioni;
+import org.barberini.sim_manager.domains.Numerazioni;
 
 import java.util.Set;
 

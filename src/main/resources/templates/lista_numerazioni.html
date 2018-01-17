@@ -1,10 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .colors:nth-of-type(odd){
+            background-color: lightgrey;
+        }
+
+        .colors:nth-of-type(even){
+            background-color: white;
+        }
+
+        .colors:hover {
+            background-color: grey;
+        }
+        .colors {
+            font-size: small;
+        }
+        .collapse:hover{
+            color: black;
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 30px;
+
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 30px;
+            line-height: 30px; /* Vertically center the text there */
+            background-color: lightgrey;
+        }
+
+        .row-hdr{
+            background-color: #009640;
+            color: white;
+        }
+
+        /* Custom page CSS
+        -------------------------------------------------- */
+        /* Not required for template or sticky footer method. */
+
+        body > .container {
+            padding: 5px 5px 0;
+        }
+
+        .footer > .container {
+            padding-right: 5px;
+            padding-left: 5px;
+            font-size: small;
+        }
+
+        code {
+            font-size: 80%;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Elenco Numerazioni</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
 <body>
+<body style="margin-top: 55px">
+<div th:insert="~{fragments/header :: header}"></div>
 <div class="table-responsive" th:if="${not #lists.isEmpty(numerazioni)}">
     <table>
         <tr>
@@ -22,5 +96,6 @@
         </tr>
     </table>
 </div>
+<div th:insert="~{fragments/footer :: copy}"></div>
 </body>
 </html>

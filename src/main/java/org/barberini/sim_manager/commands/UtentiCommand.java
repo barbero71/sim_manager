@@ -1,28 +1,23 @@
-package org.barberini.sim_manager.models;
+package org.barberini.sim_manager.commands;
 
-import javax.persistence.*;
+import org.barberini.sim_manager.domains.Numerazioni;
+
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "PH_UTENTI")
-public class Utenti
+public class UtentiCommand
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_utente;
     private String nome;
     private String cognome;
     private String matricola;
-
-    //todo: Aggiungere Reparto da enum o testo o tabella
-
-    @OneToMany(mappedBy = "utente")
-    private Set<Numerazioni> numerazioni;
-
     private Date dataAssegnazione;
     private Date dataRitiro;
 
+    private Set<Numerazioni> numerazioni;
+
+    public UtentiCommand() {
+    }
 
     public Long getId_utente() {
         return id_utente;
@@ -56,14 +51,6 @@ public class Utenti
         this.matricola = matricola;
     }
 
-    public Set<Numerazioni> getNumerazioni() {
-        return numerazioni;
-    }
-
-    public void setNumerazioni(Set<Numerazioni> numerazioni) {
-        this.numerazioni = numerazioni;
-    }
-
     public Date getDataAssegnazione() {
         return dataAssegnazione;
     }
@@ -78,5 +65,13 @@ public class Utenti
 
     public void setDataRitiro(Date dataRitiro) {
         this.dataRitiro = dataRitiro;
+    }
+
+    public Set<Numerazioni> getNumerazioni() {
+        return numerazioni;
+    }
+
+    public void setNumerazioni(Set<Numerazioni> numerazioni) {
+        this.numerazioni = numerazioni;
     }
 }

@@ -1,33 +1,127 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .colors:nth-of-type(odd){
+            background-color: lightgrey;
+        }
+
+        .colors:nth-of-type(even){
+            background-color: white;
+        }
+
+        .colors:hover {
+            background-color: grey;
+        }
+        .colors {
+            font-size: small;
+        }
+        .collapse:hover{
+            color: black;
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 30px;
+
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 30px;
+            line-height: 30px; /* Vertically center the text there */
+            background-color: lightgrey;
+        }
+
+        .row-hdr{
+            background-color: #009640;
+            color: white;
+        }
+
+        /* Custom page CSS
+        -------------------------------------------------- */
+        /* Not required for template or sticky footer method. */
+
+        body > .container {
+            padding: 5px 5px 0;
+        }
+
+        .footer > .container {
+            padding-right: 5px;
+            padding-left: 5px;
+            font-size: small;
+        }
+
+        code {
+            font-size: 80%;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>Elenco Utenti</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="margin-top: 55px">
 <div th:insert="~{fragments/header :: header}"></div>
-    <div class="table-responsive" th:if="${not #lists.isEmpty(utenti)}">
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Matricola</th>
-                <th>Data Assegnazione</th>
-                <th>Data Ritiro</th>
-                <th>&nbsp;</th>
-            </tr>
-            <tr th:each="utente : ${utenti}">
-                <!--/*@thymesVar id="utenti" type="org.barberini.sim_manager.model.Utenti"*/-->
-                <td th:text="${utente.nome}"></td>
-                <td th:text="${utente.cognome}"></td>
-                <td th:text="${utente.matricola}"></td>
-                <td th:text="${utente.dataAssegnazione}"></td>
-                <td th:text="${utente.dataRitiro}"></td>
-            </tr>
-        </table>
+    <div class="responsive-fluid" th:if="${not #lists.isEmpty(utenti)}" style="font-size: small">
+        <div class="row row-hdr">
+            <div class="col-sm-2">Cognome</div>
+            <div class="col-sm-2">Nome</div>
+            <div class="col-sm-2">Matricola</div>
+            <div class="col-sm-2">Data Assegnazione</div>
+            <div class="col-sm-2">Data ritiro</div>
+        </div>
+
+    <!--/*@thymesVar id="utenti" type="org.barberini.sim_manager.domains.Utenti"*/-->
+        <div id="accordion" >
+
+            <div th:each="utente : ${utenti}" class="colors">
+
+                <div class="row" th:href="@{'#user' + ${utente.id_utente}}" data-parent="#accordion" data-toggle="collapse">
+                    <div class="col-sm-2" th:text="${utente.cognome}">Marco</div>
+                    <div class="col-sm-2" th:text="${utente.nome}">Barberini</div>
+                    <div class="col-sm-2" th:text="${utente.matricola}">SN13</div>
+                    <div class="col-sm-2" th:text="${#dates.format(utente.dataAssegnazione, 'dd/MM/yyyy')}">26/01/2012</div>
+                    <div class="col-sm-2" th:text="${#dates.format(utente.dataRitiro, 'dd/MM/yyyy')}">26/01/2018</div>
+                </div>
+                <!--/*@thymesVar id="utenti" type="org.barberini.sim_manager.domains.Utenti"*/-->
+                <div th:attr="id='user' + ${utente.id_utente}" class="collapse">
+                    <div class="row row-hdr">
+                        <div class="col-sm-1">Numero</div>
+                        <div class="col-sm-1">Stato</div>
+                        <div class="col-sm-3">Profilo</div>
+                        <div class="col-sm-2">ICCID</div>
+                        <div class="col-sm-1">PIN</div>
+                        <div class="col-sm-2">PUK</div>
+                    </div>
+                    <div th:each="numerazioni : ${utente.numerazioni}">
+                        <div class="row" th:each="simcard : ${numerazioni.simCard}" style="background-color: lightgreen">
+                            <div class="col-sm-1" th:text="${numerazioni.numero}">Numero</div>
+                            <div class="col-sm-1">ATTIVO</div>
+                            <div class="col-sm-3" th:text="${numerazioni.profilo.descri}">Profilo</div>
+                            <div class="col-sm-2" th:text="${simcard.iccid}">ICCID</div>
+                            <div class="col-sm-1" th:text="${simcard.pin}">PIN</div>
+                            <div class="col-sm-2" th:text="${simcard.puk}">PUK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div th:insert="~{fragments/footer :: copy}"></div>
 </body>

@@ -1,6 +1,6 @@
 package org.barberini.sim_manager.services;
 
-import org.barberini.sim_manager.models.Profili;
+import org.barberini.sim_manager.domains.Profili;
 
 import java.util.Set;
 

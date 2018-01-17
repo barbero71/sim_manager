@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettagli Utente</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*@thymesVar id="utente" type="org.barberini.sim_manager.domains.Utenti"*/-->
+    <div class="row">
+        <div class="col-sm-3 bg-primary text-white">NOME</div>
+        <div class="col-sm-3" th:text="${utente.nome}">MARCO</div>
+        <div class="col-sm-3 bg-primary text-white">COGNOME</div>
+        <div class="col-sm-3" th:text="${utente.cognome}">BARBERINI</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 bg-primary text-white">MATRICOLA</div>
+        <div class="col-sm-3" th:text="${utente.matricola}">SN20</div>
+        <div class="col-sm-3 bg-primary text-white">&nbsp;</div>
+        <div class="col-sm-3">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 bg-primary text-white">DATA ASSEGNAZIONE</div>
+        <div class="col-sm-3" th:text="${utente.dataAssegnazione}">10/01/2012</div>
+        <div class="col-sm-3 bg-primary text-white">DATA RITIRO</div>
+        <div class="col-sm-3" th:text="${utente.dataRitiro}">31/12/2017</div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-12 bg-success text-white">Numerazioni</div>
+    </div>
+    <div class="row" th:remove="all">
+        <div class="col-sm-3">3426528022</div>
+        <div class="col-sm-3">ATTIVO</div>
+        <div class="col-sm-3">TIM EUROPA USA RICARICABILE</div>
+        <div class="col-sm-3">Sim...</div>
+    </div>
+    <div class="row" th:each="numerazioni : ${utente.numerazioni}">
+        <div class="col-sm-3" th:text="${numerazioni.numero}">3426528022</div>
+        <div class="col-sm-3">ATTIVO</div>
+        <div class="col-sm-3" th:text="${numerazioni.profilo.descri}">TIM EUROPA USA RICARICABILE</div>
+        <div class="col-sm-3">
+            <ul>
+                <li th:each="simcard : ${numerazioni.simCard}" th:text="${simcard.iccid} + ' ' + ${simcard.pin} + '-' + ${simcard.puk}">012346676078770</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package org.barberini.sim_manager.services;
 
-import org.barberini.sim_manager.models.Numerazioni;
+import org.barberini.sim_manager.domains.Numerazioni;
 import org.barberini.sim_manager.repositories.NumerazioniRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package org.barberini.sim_manager.services;
 
-import org.barberini.sim_manager.models.Profili;
+import org.barberini.sim_manager.domains.Profili;
 import org.barberini.sim_manager.repositories.ProfiliRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
