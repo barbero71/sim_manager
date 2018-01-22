@@ -76,7 +76,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
-<body style="margin-top: 55px">
+<body style="margin-top: 75px">
 <div th:insert="~{fragments/header :: header}"></div>
     <div class="responsive-fluid" th:if="${not #lists.isEmpty(utenti)}" style="font-size: small">
         <div class="row row-hdr">
@@ -84,7 +84,8 @@
             <div class="col-sm-2">Nome</div>
             <div class="col-sm-2">Matricola</div>
             <div class="col-sm-2">Data Assegnazione</div>
-            <div class="col-sm-2">Data ritiro</div>
+            <div class="col-sm-2">Data Ritiro</div>
+            <div class="col-sm-2">&nbsp;</div>
         </div>
 
     <!--/*@thymesVar id="utenti" type="org.barberini.sim_manager.domains.Utenti"*/-->
@@ -98,6 +99,7 @@
                     <div class="col-sm-2" th:text="${utente.matricola}">SN13</div>
                     <div class="col-sm-2" th:text="${#dates.format(utente.dataAssegnazione, 'dd/MM/yyyy')}">26/01/2012</div>
                     <div class="col-sm-2" th:text="${#dates.format(utente.dataRitiro, 'dd/MM/yyyy')}">26/01/2018</div>
+                    <div class="col-sm-2"><a th:href="@{'/users/' + ${utente.id_utente} + '/update'}">Modifica..-</a></div>
                 </div>
                 <!--/*@thymesVar id="utenti" type="org.barberini.sim_manager.domains.Utenti"*/-->
                 <div th:attr="id='user' + ${utente.id_utente}" class="collapse">

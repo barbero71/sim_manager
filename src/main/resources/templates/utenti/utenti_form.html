@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .colors:nth-of-type(odd){
+            background-color: lightgrey;
+        }
+
+        .colors:nth-of-type(even){
+            background-color: white;
+        }
+
+        .colors:hover {
+            background-color: grey;
+        }
+        .colors {
+            font-size: small;
+        }
+        .collapse:hover{
+            color: black;
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 30px;
+
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 30px;
+            line-height: 30px; /* Vertically center the text there */
+            background-color: lightgrey;
+        }
+
+        .row-hdr{
+            background-color: #009640;
+            color: white;
+        }
+
+        /* Custom page CSS
+        -------------------------------------------------- */
+        /* Not required for template or sticky footer method. */
+
+        body > .container {
+            padding: 5px 5px 0;
+        }
+
+        .footer > .container {
+            padding-right: 5px;
+            padding-left: 5px;
+            font-size: small;
+        }
+
+        code {
+            font-size: 80%;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Form Utenti</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+</head>
+<body style="margin-top: 100px">
+<div th:insert="~{fragments/header :: header}"></div>
+<div class="container-fluid">
+    <div class="row">
+<!--/*@thymesVar id="utente" type="org.barberini.sim_manager.domains.Utenti"*/-->
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${utente}" th:action="@{/utente/}">
+                <div class="row">
+                    <input type="hidden" th:field="*{id_utente}"/>
+                    <div class="pannel-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">Modifica Utente</h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Nome</label>
+                                        <input type="text" class="form-control" th:field="*{nome}"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Cognome</label>
+                                        <input type="text" class="form-control" th:field="*{cognome}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Matricola</label>
+                                        <input type="text" class="form-control" th:field="*{matricola}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Data Assegnazione</label>
+                                        <input type="date" class="form-control" th:field="*{dataAssegnazione}">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Data Ritiro</label>
+                                        <input type="date" class="form-control" th:field="*{dataRitiro}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <button type="submit" class="btn btn-primary">Salva</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 bg-success text-white">Numerazioni</div>
+    </div>
+    <div class="row" th:remove="all">
+        <div class="col-md-2">3426528022</div>
+        <div class="col-md-2">ATTIVO</div>
+        <div class="col-md-2">TIM EUROPA USA RICARICABILE</div>
+        <div class="col-md-2">Sim...</div>
+    </div>
+    <div class="row" th:each="numerazioni : ${utente.numerazioni}">
+        <div class="col-md-2" th:text="${numerazioni.numero}">3426528022</div>
+        <div class="col-md-2">ATTIVO</div>
+        <div class="col-md-2" th:text="${numerazioni.profilo.descri}">TIM EUROPA USA RICARICABILE</div>
+        <div class="col-md-2">
+            <ul>
+                <li th:each="simcard : ${numerazioni.simCard}" th:text="${simcard.iccid}">012346676078770</li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <ul>
+                <li th:each="simcard : ${numerazioni.simCard}" th:text="${simcard.pin} + '-' + ${simcard.puk}">1234-11223344</li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <a href="#">Modifica...</a>
+        </div>
+    </div>
+    <form th:object="${utente.numerazioni}" th:action="@{/numerazioni/}">
+        <button type="submit" class="btn btn-primary">Aggiungi Numerazione...</button>
+    </form>
+</div>
+</body>
+</html>

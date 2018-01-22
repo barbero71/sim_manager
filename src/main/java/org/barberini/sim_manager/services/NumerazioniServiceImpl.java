@@ -1,9 +1,13 @@
 package org.barberini.sim_manager.services;
 
+import org.barberini.sim_manager.commands.NumerazioniCommand;
+import org.barberini.sim_manager.converters.NumerazioniCommandToNumerazioni;
+import org.barberini.sim_manager.converters.NumerazioniToNumerazioniCommand;
 import org.barberini.sim_manager.domains.Numerazioni;
 import org.barberini.sim_manager.repositories.NumerazioniRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -13,10 +17,14 @@ import java.util.Set;
 public class NumerazioniServiceImpl implements NumerazioniService
 {
     private final NumerazioniRepository numerazioniRepository;
+    private final NumerazioniCommandToNumerazioni numerazioniCommandToNumerazioni;
+    private final NumerazioniToNumerazioniCommand numerazioniToNumerazioniCommand;
 
     @Autowired
-    public NumerazioniServiceImpl(NumerazioniRepository numerazioniRepository) {
+    public NumerazioniServiceImpl(NumerazioniRepository numerazioniRepository, NumerazioniCommandToNumerazioni numerazioniCommandToNumerazioni, NumerazioniToNumerazioniCommand numerazioniToNumerazioniCommand) {
         this.numerazioniRepository = numerazioniRepository;
+        this.numerazioniCommandToNumerazioni = numerazioniCommandToNumerazioni;
+        this.numerazioniToNumerazioniCommand = numerazioniToNumerazioniCommand;
     }
 
     @Override
@@ -39,5 +47,20 @@ public class NumerazioniServiceImpl implements NumerazioniService
         }
 
         return numerazioniOptional.get();
+    }
+
+    @Override
+    public NumerazioniCommand findCommandById(Long l) {
+        return numerazioniToNumerazioniCommand.convert(findById(l));
+    }
+
+    @Override
+    @Transactional
+    public NumerazioniCommand saveNumerazioniCommand(NumerazioniCommand command) {
+
+        Numerazioni detachedNumerazioni = numerazioniCommandToNumerazioni.convert(command);
+        Numerazioni savedNumerazioni = numerazioniRepository.save(detachedNumerazioni);
+
+        return numerazioniToNumerazioniCommand.convert(savedNumerazioni);
     }
 }

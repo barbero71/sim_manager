@@ -10,6 +10,8 @@ public interface UtentiService
     Set<Utenti> getUtenti();
     Utenti findById(Long l);
 
+    UtentiCommand findCommandById(Long l);
+
     UtentiCommand saveUtentiCommand(UtentiCommand command);
 
 }

@@ -1,10 +1,13 @@
 package org.barberini.sim_manager.controllers;
 
+import org.barberini.sim_manager.commands.UtentiCommand;
 import org.barberini.sim_manager.services.UtentiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -26,11 +29,34 @@ public class UtentiController
 
     }
 
-    @RequestMapping("/users/show/{id}")
+    @RequestMapping("/utenti/{id}/show")
     public String userDetails(Model model, @PathVariable String id)
     {
-        model.addAttribute("utente", utentiService.findById(new Long(id)));
+        model.addAttribute("utente", utentiService.findCommandById(new Long(id)));
 
-        return "users/show";
+        return "utenti/utenti_show";
+    }
+
+    @RequestMapping("/utenti/new")
+    public String nuovoUtente(Model model)
+    {
+        model.addAttribute("utente", new UtentiCommand());
+
+        return "utenti/utenti_form";
+    }
+
+    @RequestMapping("/users/{id}/update")
+    public String updateUtente(@PathVariable String id, Model model)
+    {
+        model.addAttribute("utente", utentiService.findCommandById(Long.valueOf(id)));
+        return "utenti/utenti_form";
+    }
+
+    @PostMapping
+    @RequestMapping("utente")
+    public String saveOrUpdate(@ModelAttribute UtentiCommand command){
+        UtentiCommand savedCommand = utentiService.saveUtentiCommand(command);
+
+        return "redirect:/utenti/" + savedCommand.getId_utente() + "/show";
     }
 }

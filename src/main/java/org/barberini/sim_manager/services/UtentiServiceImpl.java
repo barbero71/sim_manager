@@ -59,4 +59,12 @@ public class UtentiServiceImpl implements UtentiService
         return utentiToUtentiCommand.convert(savedUtenti);
 
     }
+
+    @Override
+    @Transactional
+    public UtentiCommand findCommandById(Long l) {
+
+        return utentiToUtentiCommand.convert(findById(l));
+
+    }
 }

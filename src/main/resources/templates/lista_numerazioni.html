@@ -76,25 +76,54 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 </head>
-<body>
-<body style="margin-top: 55px">
+<body style="margin-top: 75px">
 <div th:insert="~{fragments/header :: header}"></div>
-<div class="table-responsive" th:if="${not #lists.isEmpty(numerazioni)}">
-    <table>
-        <tr>
-            <th>Numerazione</th>
-            <th>Data Attivazione</th>
-            <th>Data Disattivazione</th>
-            <th>&nbsp;</th>
-        </tr>
-        <tr th:each="numerazione : ${numerazioni}">
+<div class="responsive-fluid" th:if="${not #lists.isEmpty(numerazioni)}" style="font-size: small">
+    <div class="row row-hdr">
+        <div class="col-sm-1">Numero</div>
+        <div class="col-sm-3">Profilo</div>
+        <div class="col-sm-1">Stato</div>
+        <div class="col-sm-2">Data Assegnazione</div>
+        <div class="col-sm-1">Data ritiro</div>
+        <div class="col-sm-3">Utente</div>
+        <div class="col-sm-1">&nbsp;</div>
+    </div>
+
+    <!--/*@thymesVar id="numerazioni" type="org.barberini.sim_manager.model.Numerazioni"*/-->
+    <div id="accordion" >
+
+        <div th:each="numerazione : ${numerazioni}" class="colors">
+
+            <div class="row" th:href="@{'#numero' + ${numerazione.numero}}" data-parent="#accordion" data-toggle="collapse">
+                <div class="col-sm-1" th:text="${numerazione.numero}">3426528022</div>
+                <div class="col-sm-3" th:text="${numerazione.profilo.descri}">TIM EUROPA USA RICARICABILE</div>
+                <div class="col-sm-1" th:text="${numerazione.stato}">ATTIVO</div>
+                <div class="col-sm-2" th:text="${#dates.format(numerazione.dataAttivazione, 'dd/MM/yyyy')}">26/01/2012</div>
+                <div class="col-sm-1" th:text="${#dates.format(numerazione.dataDisattivazione, 'dd/MM/yyyy')}">26/01/2018</div>
+                <div class="col-sm-3" th:text="${numerazione.utente.cognome} + ' ' + ${numerazione.utente.nome}">ATTIVO</div>
+                <div class="col-sm-1"><a th:href="@{'/numerazioni/' + ${numerazione.numero} + '/update'}">Modifica..-</a></div>
+            </div>
             <!--/*@thymesVar id="numerazioni" type="org.barberini.sim_manager.model.Numerazioni"*/-->
-            <td th:text="${numerazione.numero}"></td>
-            <td th:text="${numerazione.dataAttivazione}"></td>
-            <td th:text="${numerazione.dataDisattivazione}"></td>
-            <td>Modifica...</td>
-        </tr>
-    </table>
+            <div th:attr="id='numero' + ${numerazione.numero}" class="collapse">
+                <div class="row row-hdr">
+                    <div class="col-sm-2">ICCID</div>
+                    <div class="col-sm-2">Stato</div>
+                    <div class="col-sm-2">Operatore</div>
+                    <div class="col-sm-2">PIN</div>
+                    <div class="col-sm-2">PUK</div>
+                    <div class="cls-sm-2">&nbsp;</div>
+                </div>
+                <div th:each="simcard : ${numerazione.simCard}" class="row">
+                    <div class="col-sm-2" th:text="${simcard.iccid}">Numero</div>
+                    <div class="col-sm-2">ATTIVO</div>
+                    <div class="col-sm-2" th:text="${simcard.operatore}">Profilo</div>
+                    <div class="col-sm-2" th:text="${simcard.pin}">PIN</div>
+                    <div class="col-sm-2" th:text="${simcard.puk}">PUK</div>
+                    <div class="col-sm-2">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:insert="~{fragments/footer :: copy}"></div>
 </body>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .colors:nth-of-type(odd){
+            background-color: lightgrey;
+        }
+
+        .colors:nth-of-type(even){
+            background-color: white;
+        }
+
+        .colors:hover {
+            background-color: grey;
+        }
+        .colors {
+            font-size: small;
+        }
+        .collapse:hover{
+            color: black;
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 30px;
+
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 30px;
+            line-height: 30px; /* Vertically center the text there */
+            background-color: lightgrey;
+        }
+
+        .row-hdr{
+            background-color: #009640;
+            color: white;
+        }
+
+        /* Custom page CSS
+        -------------------------------------------------- */
+        /* Not required for template or sticky footer method. */
+
+        body > .container {
+            padding: 5px 5px 0;
+        }
+
+        .footer > .container {
+            padding-right: 5px;
+            padding-left: 5px;
+            font-size: small;
+        }
+
+        code {
+            font-size: 80%;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Form Utenti</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+</head>
+<body style="margin-top: 100px">
+<div th:insert="~{fragments/header :: header}"></div>
+<div class="container-fluid">
+    <div class="row">
+<!--/*@thymesVar id="numerazione" type="org.barberini.sim_manager.domains.Numerazioni"*/-->
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${numerazione}" th:action="@{/numerazione/}">
+                <div class="row">
+                    <input type="hidden" th:field="*{numero}"/>
+                    <div class="pannel-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">Modifica Numerazione</h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Numerazione</label>
+                                        <input type="text" class="form-control" th:field="*{numero}"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Stato</label>
+                                        <input type="text" class="form-control" th:field="*{stato}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Data Attivazione</label>
+                                        <input type="date" class="form-control" th:field="*{dataAttivazione}">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Data Disattivazione</label>
+                                        <input type="date" class="form-control" th:field="*{dataDisattivazione}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <button type="submit" class="btn btn-primary">Salva</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 bg-success text-white">Sim Card</div>
+    </div>
+    <div class="row" th:remove="all">
+        <div class="col-md-2">3426528022</div>
+        <div class="col-md-2">ATTIVO</div>
+        <div class="col-md-2">TIM EUROPA USA RICARICABILE</div>
+        <div class="col-md-2">Sim...</div>
+    </div>
+    <div class="row" th:each="simcard : ${numerazione.simCard}">
+        <div class="col-md-2" th:text="${simcard.iccid}">8939010001235422111</div>
+        <div class="col-md-2" th:text="${simcard.stato}">ATTIVO</div>
+        <div class="col-md-2" th:text="${simcard.pin}">0000</div>
+        <div class="col-md-2" th:text="${simcard.puk}">000000</div>
+        <div class="col-md-2">
+            <a href="#">Modifica...</a>
+        </div>
+    </div>
+    <form th:object="${numerazioni}" th:action="@{/numerazioni/}">
+        <button type="submit" class="btn btn-primary">Aggiungi Sim Card...</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,8 +1,9 @@
 package org.barberini.sim_manager.commands;
 
 import org.barberini.sim_manager.domains.Numerazioni;
+import org.barberini.sim_manager.domains.Stati;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 public class UtentiCommand
@@ -13,6 +14,7 @@ public class UtentiCommand
     private String matricola;
     private Date dataAssegnazione;
     private Date dataRitiro;
+    private Stati stato;
 
     private Set<Numerazioni> numerazioni;
 
@@ -73,5 +75,13 @@ public class UtentiCommand
 
     public void setNumerazioni(Set<Numerazioni> numerazioni) {
         this.numerazioni = numerazioni;
+    }
+
+    public Stati getStato() {
+        return stato;
+    }
+
+    public void setStato(Stati stato) {
+        this.stato = stato;
     }
 }

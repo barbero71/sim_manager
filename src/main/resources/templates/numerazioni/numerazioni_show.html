@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettagli Utente</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*@thymesVar id="numerazione" type="org.barberini.sim_manager.domains.Numerazioni"*/-->
+    <div class="row">
+        <div class="col-sm-3 bg-primary text-white">Numero</div>
+        <div class="col-sm-3" th:text="${numerazione.numero}">3426528022</div>
+        <div class="col-sm-3 bg-primary text-white">Profilo</div>
+        <div class="col-sm-3" th:text="${numerazione.profilo}">TIM EUROPA USA RICARICABILE</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 bg-primary text-white">Stato</div>
+        <div class="col-sm-3" th:text="${numerazione.stato}">SN20</div>
+        <div class="col-sm-3 bg-primary text-white">&nbsp;</div>
+        <div class="col-sm-3">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 bg-primary text-white">DATA Attivazione</div>
+        <div class="col-sm-3" th:text="${numerazione.dataAttivazione}">10/01/2012</div>
+        <div class="col-sm-3 bg-primary text-white">DATA DISATTIVAZIONE</div>
+        <div class="col-sm-3" th:text="${numerazione.dataDisattivazione}">31/12/2017</div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-12 bg-success text-white">Sim Card</div>
+    </div>
+    <div class="row" th:remove="all">
+        <div class="col-sm-3">3426528022</div>
+        <div class="col-sm-3">ATTIVO</div>
+        <div class="col-sm-3">TIM EUROPA USA RICARICABILE</div>
+        <div class="col-sm-3">Sim...</div>
+    </div>
+    <div class="row" th:each="simcard : ${numerazione.simCard}">
+        <div class="col-sm-3" th:text="${simcard.iccid}">8939010001142312345</div>
+        <div class="col-sm-3" th:text="${simcard.stato}">ATTIVO</div>
+        <div class="col-sm-3" th:text="${simcard.pin}">0000</div>
+        <div class="col-sm-3" th:text="${simcard.puk}">000000</div>
+    </div>
+</div>
+</body>
+</html>
